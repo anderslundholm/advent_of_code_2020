@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"os"
 
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"github.com/anderslundholm/advent_of_code_2020/day1"
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
+	"github.com/anderslundholm/advent_of_code_2020/day2"
 )
 
 var cfgFile string
@@ -30,13 +31,13 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
-		day1.Part1()
 	}
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
 	day1.AppendCommand(rootCmd)
+	day2.AppendCommand(rootCmd)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent_of_code_2020.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
