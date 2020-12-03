@@ -10,6 +10,7 @@ import (
 
 	"github.com/anderslundholm/advent_of_code_2020/day1"
 	"github.com/anderslundholm/advent_of_code_2020/day2"
+	"github.com/anderslundholm/advent_of_code_2020/day3"
 )
 
 var cfgFile string
@@ -38,6 +39,7 @@ func init() {
 	cobra.OnInitialize(initConfig)
 	day1.AppendCommand(rootCmd)
 	day2.AppendCommand(rootCmd)
+	day3.AppendCommand(rootCmd)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent_of_code_2020.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
