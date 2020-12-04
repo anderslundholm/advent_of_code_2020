@@ -7,19 +7,7 @@ import (
 
 	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
-	"github.com/spf13/cobra"
 )
-
-func part1Cmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "1",
-		Short: "run day1-part1",
-		Long:  "Run the Day 1, Part 1 code.",
-		Run: func(cmd *cobra.Command, args []string) {
-			Part1()
-		},
-	}
-}
 
 func multiplyTwo(data []int) (int, error) {
 	var product int
