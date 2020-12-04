@@ -3,8 +3,8 @@ package day4
 import (
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 	"github.com/spf13/cobra"
 )
@@ -24,13 +24,7 @@ func part1Cmd() *cobra.Command {
 func Part1() {
 	defer timer.ExecutionTimer("Part1")()
 
-	f, err := os.Open("day4/input.txt")
-	if err != nil {
-		log.Fatalf("Could not open file: %v\n", err)
-	}
-	defer f.Close()
-
-	lines, err := readLines(f)
+	lines, err := reader.ReadLines("day4/input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
