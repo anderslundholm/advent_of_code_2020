@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 	"github.com/spf13/cobra"
 )
@@ -39,13 +39,10 @@ func multiplyTwo(data []int) (int, error) {
 func Part1() {
 	defer timer.ExecutionTimer("Part1")()
 
-	f, err := os.Open("day1/input.txt")
+	ints, err := reader.ReadInts("day1/input.txt")
 	if err != nil {
-		log.Fatalf("Could not open file: %v\n", err)
+		log.Fatalf("Could not read ints: %v\n", err)
 	}
-	defer f.Close()
-
-	ints, err := readInts(f)
 
 	product, err := multiplyTwo(ints)
 	if err != nil {

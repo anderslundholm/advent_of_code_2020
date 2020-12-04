@@ -3,8 +3,8 @@ package day2
 import (
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 	"github.com/spf13/cobra"
 )
@@ -28,13 +28,7 @@ func checkNewPolicy(entry dbEntry) bool {
 func Part2() {
 	defer timer.ExecutionTimer("Part2")()
 
-	f, err := os.Open("day2/input.txt")
-	if err != nil {
-		log.Fatalf("Could not open file: %v\n", err)
-	}
-	defer f.Close()
-
-	lines, err := readLines(f)
+	lines, err := reader.ReadLines("day2/input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
