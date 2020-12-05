@@ -2,31 +2,28 @@ package day4
 
 import "github.com/spf13/cobra"
 
-var (
-	part1Cmd = &cobra.Command{
-		Use:   "1",
-		Short: "run day4-part1",
-		Long:  "Run the Day 4, Part 1 code.",
+type partFunc func()
+
+func getPartCmd(part string, day string, f partFunc) *cobra.Command {
+	return &cobra.Command{
+		Use:   part,
+		Short: "run day" + day + "-part" + part,
+		Long:  "Run the Day " + day + ", Part " + part + " code.",
 		Run: func(cmd *cobra.Command, args []string) {
-			Part1()
+			f()
 		},
 	}
-	part2Cmd = &cobra.Command{
-		Use:   "2",
-		Short: "run day4-part2",
-		Long:  "Run the Day 4, Part 2 code.",
-		Run: func(cmd *cobra.Command, args []string) {
-			Part2()
-		},
-	}
-)
+}
 
 // AppendCommand adds command for the challange day and part numbers.
 func AppendCommand(rootCmd *cobra.Command) {
+	day := "4"
 	dayCmd := &cobra.Command{
-		Use:   "day4",
-		Short: "Problems for Day 4",
+		Use:   "day" + day,
+		Short: "Problems for Day " + day,
 	}
+	part1Cmd := getPartCmd("1", day, Part1)
+	part2Cmd := getPartCmd("2", day, Part2)
 	dayCmd.AddCommand(part1Cmd)
 	dayCmd.AddCommand(part2Cmd)
 
