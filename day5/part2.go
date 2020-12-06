@@ -34,5 +34,5 @@ func Part2() {
 		}
 	}
 
-	fmt.Printf("Day5 Part1 result: %d\n", mySeat)
+	fmt.Printf("Day5 Part2 result: %d\n", mySeat)
 }
