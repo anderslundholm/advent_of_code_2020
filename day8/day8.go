@@ -122,12 +122,12 @@ func runProgram2(lines []string) int {
 		if err != nil {
 			log.Fatalf("Cannot convert value: %v\n", err)
 		}
-
-		if instruction == accInstruction {
+		switch instruction {
+		case accInstruction:
 			accValue += value
 			visitedLines[index] = true
 			index++
-		} else if instruction == jmpInstruction {
+		case jmpInstruction:
 			if _, ok := changedInstructions[index]; ok != true && value != 0 && changed != true {
 				changedInstructions[index] = true
 				changed = true
@@ -137,7 +137,7 @@ func runProgram2(lines []string) int {
 				visitedLines[index] = true
 				index += value
 			}
-		} else if instruction == nopInstruction {
+		case nopInstruction:
 			if _, ok := changedInstructions[index]; ok != true && value != 0 && changed != true {
 				changedInstructions[index] = true
 				changed = true
