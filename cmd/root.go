@@ -16,6 +16,7 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/day6"
 	"github.com/anderslundholm/advent_of_code_2020/day7"
 	"github.com/anderslundholm/advent_of_code_2020/day8"
+	"github.com/anderslundholm/advent_of_code_2020/day9"
 )
 
 var cfgFile string
@@ -50,6 +51,7 @@ func init() {
 	day6.AppendCommand(rootCmd)
 	day7.AppendCommand(rootCmd)
 	day8.AppendCommand(rootCmd)
+	day9.AppendCommand(rootCmd)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent_of_code_2020.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
