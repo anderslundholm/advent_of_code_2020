@@ -18,7 +18,6 @@ func Part1() {
 	}
 
 	result := findJoltageChain(lines)
-	// result := lines
 
 	fmt.Printf("Day10 Part1 result: %v\n", result)
 }
