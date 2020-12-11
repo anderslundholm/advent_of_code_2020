@@ -34,6 +34,7 @@ func countChargerArrangements(lines []int) int {
 	return result
 }
 
+// implementation for part 2 with recursive function.
 func recursiveCount(recurseIndex int, lines []int) int {
 	if recurseIndex == len(lines)-1 {
 		return 1
@@ -49,4 +50,36 @@ func recursiveCount(recurseIndex int, lines []int) int {
 	}
 	discoveredArrangements[recurseIndex] = result
 	return result
+}
+
+// second implementation for part 2 with single loop and if statements.
+func checkAdjacentNumbers(lines []int) int {
+	prepList(&lines)
+	subsum := 1
+	count := 0
+	for i := range lines {
+		if i == len(lines)-1 {
+			break
+		}
+		diff := lines[i+1] - lines[i]
+		if diff == 3 && count > 1 {
+			if count == 2 {
+				subsum = subsum * 2
+			} else if count == 3 {
+				subsum = subsum * 4
+			} else if count == 4 {
+				subsum = subsum * 7
+			} else {
+				subsum = subsum * count
+			}
+			count = 0
+		}
+		if diff == 3 && count <= 1 {
+			count = 0
+		} else if diff == 1 {
+			count++
+		}
+	}
+
+	return subsum
 }
