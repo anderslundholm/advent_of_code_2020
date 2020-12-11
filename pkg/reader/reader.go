@@ -46,3 +46,23 @@ func ReadLines(filePath string) ([]string, error) {
 	}
 	return result, s.Err()
 }
+
+// ReadChars reads from file line by line and returns a map of strings.
+func ReadChars(filePath string) (map[int]string, int, error) {
+	f := openFile(filePath)
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	s.Split(bufio.ScanRunes)
+	result := make(map[int]string)
+	rowLength := 0
+	index := 0
+	for s.Scan() {
+		if rowLength == 0 && s.Text() == "\n" {
+			rowLength = index
+		} else if s.Text() != "\n" {
+			result[index] = s.Text()
+			index++
+		}
+	}
+	return result, rowLength, s.Err()
+}
