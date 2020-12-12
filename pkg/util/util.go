@@ -15,3 +15,11 @@ func MinMax(numbersArray []int) (int, int) {
 	}
 	return min, max
 }
+
+// Abs takes an int and returns the absolute value.
+func Abs(n int) int {
+	if n < 0 {
+		return -n
+	}
+	return n
+}
