@@ -8,16 +8,20 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 )
 
+func modelNewProcess(input []int) {
+
+}
+
 // Part2 ...
 func Part2() {
 	defer timer.ExecutionTimer("Part2")()
 
-	input, _, err := reader.ReadChars("day11/input.txt")
+	input, err := reader.ReadMultiLineRunes("day11/input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
-
-	result := input
+	// result := input
+	result := newModelProcess(&input)
 
 	fmt.Printf("Day11 Part2 result: %v\n", result)
 }

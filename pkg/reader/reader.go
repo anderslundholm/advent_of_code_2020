@@ -66,3 +66,23 @@ func ReadChars(filePath string) (map[int]string, int, error) {
 	}
 	return result, rowLength, s.Err()
 }
+
+// ReadMultiRunes reads from file line by line and returns a 2d slice of runes.
+func ReadMultiLineRunes(filePath string) ([][]string, error) {
+	f := openFile(filePath)
+	defer f.Close()
+	s := bufio.NewScanner(f)
+	s.Split(bufio.ScanRunes)
+	var result [][]string
+	var inner []string
+	for s.Scan() {
+		if s.Text() == "\n" {
+			result = append(result, inner)
+			inner = []string{}
+		} else {
+			inner = append(inner, s.Text())
+		}
+	}
+	result = append(result, inner)
+	return result, s.Err()
+}
