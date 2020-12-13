@@ -1,5 +1,10 @@
 package util
 
+import (
+	"log"
+	"strconv"
+)
+
 // MinMax takes an array of numbers and returns the minimum and the maximum numbers.
 func MinMax(numbersArray []int) (int, int) {
 	max := numbersArray[0]
@@ -22,4 +27,34 @@ func Abs(n int) int {
 		return -n
 	}
 	return n
+}
+
+// MustConvertAtoi takes a string and returns an int or logs a fatal error if convertion fails.
+func MustConvertAtoi(s string) int {
+	num, err := strconv.Atoi(s)
+	if err != nil {
+		log.Fatalf("could not convert number: %v", err)
+	}
+	return num
+}
+
+// GCD returns the greatest common divisor by the Euclidean algorithm
+func GCD(a, b int) int {
+	for b != 0 {
+		t := b
+		b = a % b
+		a = t
+	}
+	return a
+}
+
+// LCM returns the Least Common Multiple via GCD
+func LCM(a, b int, integers ...int) int {
+	result := a * b / GCD(a, b)
+
+	for i := 0; i < len(integers); i++ {
+		result = LCM(result, integers[i])
+	}
+
+	return result
 }
