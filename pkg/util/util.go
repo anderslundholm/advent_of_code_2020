@@ -38,6 +38,15 @@ func MustAtoi(s string) int {
 	return num
 }
 
+// MustParseInt takes a string and returns an int or logs a fatal error if convertion fails.
+func MustParseInt(s string, base int, bitSize int) int64 {
+	num, err := strconv.ParseInt(s, base, bitSize)
+	if err != nil {
+		log.Fatalf("could not parse number: %v", err)
+	}
+	return num
+}
+
 // GCD returns the greatest common divisor by the Euclidean algorithm
 func GCD(a, b int) int {
 	for b != 0 {
