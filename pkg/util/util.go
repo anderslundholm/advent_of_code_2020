@@ -29,8 +29,8 @@ func Abs(n int) int {
 	return n
 }
 
-// MustConvertAtoi takes a string and returns an int or logs a fatal error if convertion fails.
-func MustConvertAtoi(s string) int {
+// MustAtoi takes a string and returns an int or logs a fatal error if convertion fails.
+func MustAtoi(s string) int {
 	num, err := strconv.Atoi(s)
 	if err != nil {
 		log.Fatalf("could not convert number: %v", err)

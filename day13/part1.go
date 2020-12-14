@@ -13,12 +13,12 @@ import (
 func earliestBusToAirport(input []string) int {
 	var earliestBus int
 	var earliestBusTime int
-	earliestTimestamp := util.MustConvertAtoi(input[0])
+	earliestTimestamp := util.MustAtoi(input[0])
 
 	departTimes := strings.Split(input[1], ",")
 	for _, t := range departTimes {
 		if t != "x" {
-			t := util.MustConvertAtoi(t)
+			t := util.MustAtoi(t)
 			mod := earliestTimestamp % t
 			if earliestBusTime == 0 || earliestBusTime > t-mod {
 				earliestBus = t
