@@ -15,12 +15,6 @@ type coord struct {
 	y int
 }
 
-func getRowNum(index int, rowLength int) int {
-	rowIndex := index % rowLength
-	rowNum := (index - rowIndex) / rowLength
-	return rowNum
-}
-
 func countAdjacentOccupied(input map[int]string, i int, rowLength int) int {
 	adjacentOccupied := 0
 	var adjacentSeats []int

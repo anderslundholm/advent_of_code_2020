@@ -20,12 +20,6 @@ func (value *bitValue) applyMask(zeroMask string, oneMask string) {
 	*value &= oneBitMask
 }
 
-func (value *bitValue) applyMaskV2(oneMask string) {
-	oneBitMask := bitValue(util.MustParseInt(oneMask, 2, 0))
-
-	*value &= oneBitMask
-}
-
 func genearateFluxMasks(buildMask, originalMask, address string) []string {
 	if len(originalMask) == 0 {
 		return []string{buildMask}
