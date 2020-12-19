@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
+
+	"github.com/anderslundholm/advent_of_code_2020/pkg/util"
 
 	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
@@ -30,16 +33,68 @@ import (
 // 	return earliestBus * earliestBusTime
 // }
 
-func test(input []string) int {
-	var result int
-	// var bussIDs []int
+type bus struct {
+	id     int
+	offset int
+}
+
+func earliestBusOffset(input []string) int {
+	var bussIDs []int
+	var bussIDIndexes = make(map[int]int)
+	var busses []bus
 	departTimes := strings.Split(input[1], ",")
-	for _, t := range departTimes {
+	for i, t := range departTimes {
 		if t != "x" {
-			// bussIDs = t
+			bussIDs = append(bussIDs, util.MustAtoi(t))
+			bussIDIndexes[util.MustAtoi(t)] = i
+
+			busses = append(busses, bus{id: util.MustAtoi(t), offset: i})
+			// fmt.Println(i, util.MustAtoi(t))
 		}
 	}
+	// increment := 1
+	// time := 1
+	// for bussTime, offset := range bussIDIndexes {
 
+	// 	for {
+	// 		nextBussTime := time + offset
+	// 		if nextBussTime%bussTime == 0 {
+	// 			break
+	// 		}
+	// 		time += increment
+
+	// 	}
+	// 	increment *= offset
+	// 	fmt.Println(time, increment, offset)
+	// }
+
+	// b := 77
+	// offset := 1
+	// inc := 1
+	for i := 0; i < len(busses)-1; i++ {
+		nextBuss := busses[i+1].id
+		for j := busses[i].id; ; j = j + busses[i].id {
+
+			if nextBuss <= j {
+				nextBuss += busses[i+1].id
+			}
+			// for k := busses[i+1].id; ; k = k + busses[i+1].id {
+
+			// }
+			if j == nextBuss-1 {
+				// fmt.Println(j, nextBuss)
+				break
+			}
+
+			fmt.Println(j, nextBuss)
+			time.Sleep(1 * time.Second)
+		}
+		// a := util.LCM(bussIDs[i], bussIDs[i+1])
+		// a + b
+		// fmt.Println(busses[i])
+
+	}
+	result := 0
 	return result
 }
 
@@ -52,7 +107,7 @@ func Part2() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := test(input)
+	result := earliestBusOffset(input)
 
 	fmt.Printf("Day13 Part2 result: %v\n", result)
 }
