@@ -17,7 +17,7 @@ func Part2() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result, _ := getErrorsV2(input)
+	result := mapFields(input)
 
 	fmt.Printf("Day16 Part2 result: %v\n", result)
 }
