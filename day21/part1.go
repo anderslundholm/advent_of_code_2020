@@ -12,12 +12,12 @@ import (
 func Part1() {
 	defer timer.ExecutionTimer("Part1")()
 
-	input, err := reader.ReadLines("day21/input.txt")
+	input, err := reader.ReadLines("day21/test_input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := input
+	result := getAlergenFreeIngredients(input)
 
 	fmt.Printf("Day21 Part1 result: %v\n", result)
 }
