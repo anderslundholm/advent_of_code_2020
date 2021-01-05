@@ -1,4 +1,4 @@
-package day16
+package day17
 
 import (
 	"fmt"
@@ -8,16 +8,16 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 )
 
-// Part2 ...
-func Part2() {
-	defer timer.ExecutionTimer("Part2")()
+// Part1 ...
+func Part1() {
+	defer timer.ExecutionTimer("Part1")()
 
-	input, err := reader.ReadLines("day16/input.txt")
+	input, err := reader.ReadLines("day17/input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := mapFields(input)
+	result := simulateCycles(input, 6)
 
-	fmt.Printf("Day16 Part2 result: %v\n", result)
+	fmt.Printf("Day17 Part1 result: %v\n", result)
 }

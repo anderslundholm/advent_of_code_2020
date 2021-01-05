@@ -1,4 +1,4 @@
-package day16
+package day18
 
 import (
 	"fmt"
@@ -12,12 +12,12 @@ import (
 func Part2() {
 	defer timer.ExecutionTimer("Part2")()
 
-	input, err := reader.ReadLines("day16/input.txt")
+	input, err := reader.ReadLines("day18/input.txt")
 	if err != nil {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := mapFields(input)
+	result := getSumOfResultsV2(input)
 
-	fmt.Printf("Day16 Part2 result: %v\n", result)
+	fmt.Printf("Day18 Part2 result: %v\n", result)
 }
