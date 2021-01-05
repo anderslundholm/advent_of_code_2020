@@ -17,7 +17,7 @@ func Part1() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := input
+	result := getAlergenFreeIngredients(input)
 
 	fmt.Printf("Day21 Part1 result: %v\n", result)
 }
