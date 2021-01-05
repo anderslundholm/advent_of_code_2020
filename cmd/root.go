@@ -16,6 +16,7 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/day14"
 	"github.com/anderslundholm/advent_of_code_2020/day15"
 	"github.com/anderslundholm/advent_of_code_2020/day16"
+	"github.com/anderslundholm/advent_of_code_2020/day17"
 	"github.com/anderslundholm/advent_of_code_2020/day18"
 	"github.com/anderslundholm/advent_of_code_2020/day2"
 	"github.com/anderslundholm/advent_of_code_2020/day20"
@@ -69,6 +70,7 @@ func init() {
 	day14.AppendCommand(rootCmd)
 	day15.AppendCommand(rootCmd)
 	day16.AppendCommand(rootCmd)
+	day17.AppendCommand(rootCmd)
 	day18.AppendCommand(rootCmd)
 	day20.AppendCommand(rootCmd)
 	day21.AppendCommand(rootCmd)
