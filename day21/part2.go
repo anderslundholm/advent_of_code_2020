@@ -17,7 +17,7 @@ func Part2() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := input
+	result := arrangeAllergens(input)
 
 	fmt.Printf("Day21 Part2 result: %v\n", result)
 }
