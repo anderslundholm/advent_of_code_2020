@@ -17,7 +17,7 @@ func Part2() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := simulateCycles(input, 6)
+	result := simulate4DCycles(input, 6)
 
 	fmt.Printf("Day17 Part2 result: %v\n", result)
 }
