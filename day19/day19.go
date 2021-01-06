@@ -32,10 +32,10 @@ type memoizeRule struct {
 	rule  int
 }
 
-func check(ruleNum int, rules map[int]rule, char string, i int) bool {
+func check(ruleNum int, rules map[int]rule, char string) bool {
 	// fmt.Println(string(char))
 	if rules[ruleNum].char != "" {
-		fmt.Println(ruleNum, char)
+		fmt.Println("asdf", ruleNum, rules[ruleNum].char, char)
 		if char == rules[ruleNum].char {
 			fmt.Println(ruleNum, char)
 			return true
@@ -44,7 +44,7 @@ func check(ruleNum int, rules map[int]rule, char string, i int) bool {
 	} else {
 		result := false
 		for _, num := range rules[ruleNum].rules0 {
-			fmt.Println(ruleNum, num)
+			// fmt.Println(ruleNum, num)
 			result = check(num, rules, char)
 			if !result {
 				break
@@ -72,9 +72,8 @@ func match(message string, start, end int, rules map[int]rule, r int) bool {
 		return true
 	}
 	fmt.Println(message)
-	for i, char := range message {
-
-		if !check(0, rules, string(char), i) {
+	for _, char := range message {
+		if !check(0, rules, string(char)) {
 			fmt.Println("!!!!", message)
 			return false
 		}
@@ -97,6 +96,7 @@ func matchingRules(input []string) int {
 		if match(message, 0, len(message), rules, 0) {
 
 			result++
+			fmt.Println("result", result)
 		}
 	}
 
