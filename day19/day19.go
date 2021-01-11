@@ -27,58 +27,75 @@ func (r *rule) addRule(i int, n int) *rule {
 var discoveredMessages = make(map[memoizeRule]bool)
 
 type memoizeRule struct {
-	start int
-	end   int
+	last  int
 	rule  int
+	match bool
 }
 
-func check(ruleNum int, rules map[int]rule, char string) bool {
+func check(ruleResult memoizeRule, rules map[int]rule, char string) memoizeRule {
 	// fmt.Println(string(char))
-	if rules[ruleNum].char != "" {
-		fmt.Println("asdf", ruleNum, rules[ruleNum].char, char)
-		if char == rules[ruleNum].char {
-			fmt.Println(ruleNum, char)
-			return true
+	ruleResult.match = false
+	if rules[ruleResult.rule].char != "" {
+		fmt.Println("hell?", ruleResult.rule, char, ruleResult)
+		// fmt.Println("asdf", ruleNum, rules[ruleNum].char, char)
+		if char == rules[ruleResult.rule].char {
+			// fmt.Println(ruleNum, char)
+			ruleResult.match = true
+			ruleResult.last++
+			return ruleResult
 		}
-		return false
+		ruleResult.match = false
+		return ruleResult
 	} else {
-		result := false
-		for _, num := range rules[ruleNum].rules0 {
-			// fmt.Println(ruleNum, num)
-			result = check(num, rules, char)
-			if !result {
+		curRuleNum := rules[ruleResult.rule].rules0
+		for i := ruleResult.last; i < len(curRuleNum); i++ {
+			ruleResult.last = i
+			ruleResult.rule = curRuleNum[i]
+			ruleResult = check(ruleResult, rules, char)
+			fmt.Println(ruleResult.rule, curRuleNum[i], char, ruleResult)
+			if !ruleResult.match {
 				break
+			} else {
+				return ruleResult
 			}
 		}
-		if result {
-			return true
+		if ruleResult.match {
+			return ruleResult
 		}
-		for _, num := range rules[ruleNum].rules1 {
-			result = check(num, rules, char)
-			if !result {
+		curRuleNum = rules[ruleResult.rule].rules0
+		for i := ruleResult.last; i < len(curRuleNum); i++ {
+			ruleResult.last = i
+			ruleResult.rule = curRuleNum[i]
+			ruleResult = check(ruleResult, rules, char)
+			fmt.Println(ruleResult.rule, curRuleNum[i], char, ruleResult)
+			if !ruleResult.match {
 				break
+			} else {
+				return ruleResult
 			}
-		}
-		if result {
-			return true
 		}
 	}
-	return false
+	return ruleResult
 }
 
 func match(message string, start, end int, rules map[int]rule, r int) bool {
-	memoize := memoizeRule{start: start, end: end, rule: r}
-	if ok := discoveredMessages[memoize]; ok {
-		return true
-	}
-	fmt.Println(message)
+	// memoize := memoizeRule{start: start, end: end, rule: r}
+	// if ok := discoveredMessages[memoize]; ok {
+	// 	return true
+	// }
+	// fmt.Println(message)
+	var ruleResult = memoizeRule{rule: 0, last: 0, match: false}
 	for _, char := range message {
-		if !check(0, rules, string(char)) {
-			fmt.Println("!!!!", message)
+		fmt.Println("Checking: ", message, ruleResult)
+		ruleResult = check(ruleResult, rules, string(char))
+		if !ruleResult.match {
+			fmt.Println("!!!!", message, ruleResult)
 			return false
 		}
+
 	}
-	// fmt.Println(message)
+	fmt.Println("returned true", message, ruleResult)
+
 	return true
 }
 
