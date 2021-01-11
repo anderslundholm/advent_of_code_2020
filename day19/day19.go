@@ -78,25 +78,27 @@ func check(ruleResult memoizeRule, rules map[int]rule, char string) memoizeRule 
 	return ruleResult
 }
 
-func match(message string, start, end int, rules map[int]rule, r int) bool {
+func match(message string, rules map[int]rule) bool {
 	// memoize := memoizeRule{start: start, end: end, rule: r}
 	// if ok := discoveredMessages[memoize]; ok {
 	// 	return true
 	// }
 	// fmt.Println(message)
 	var ruleResult = memoizeRule{rule: 0, last: 0, match: false}
-	for _, char := range message {
-		fmt.Println("Checking: ", message, ruleResult)
-		ruleResult = check(ruleResult, rules, string(char))
-		if !ruleResult.match {
-			fmt.Println("!!!!", message, ruleResult)
-			return false
-		}
+	ruleResult = check(ruleResult, rules, message)
 
-	}
-	fmt.Println("returned true", message, ruleResult)
+	// for _, char := range message {
+	// 	fmt.Println("Checking: ", message, ruleResult)
+	// 	ruleResult = check(ruleResult, rules, string(char))
+	// 	if !ruleResult.match {
+	// 		fmt.Println("!!!!", message, ruleResult)
+	// 		return false
+	// 	}
 
-	return true
+	// }
+	// fmt.Println("returned true", message, ruleResult)
+
+	// return true
 }
 
 func matchingRules(input []string) int {
@@ -110,7 +112,7 @@ func matchingRules(input []string) int {
 	// }
 	for message := range messages {
 		// fmt.Println(message)
-		if match(message, 0, len(message), rules, 0) {
+		if match(message, rules) {
 
 			result++
 			fmt.Println("result", result)
