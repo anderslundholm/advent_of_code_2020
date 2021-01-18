@@ -29,44 +29,6 @@ type recurseResult struct {
 	next      []int
 }
 
-func check(message string, rules map[int]rule, rr recurseResult) bool {
-	rule := rules[rr.ruleIndex]
-	if rule.char != "" {
-		if string(message[rr.index]) != rule.char {
-			return false
-		}
-		if len(rr.next) == 0 {
-			return rr.index == len(message)-1
-		} else if rr.index+1 >= len(message) {
-			return false
-		} else {
-			rr2 := recurseResult{ruleIndex: rr.next[0], index: rr.index + 1, next: rr.next[1:]}
-			return check(message, rules, rr2)
-		}
-	}
-
-	nextRule := rule.rules0[1:]
-	next := make([]int, len(rr.next)+len(nextRule))
-	copy(next, nextRule)
-	copy(next[len(nextRule):], rr.next)
-	rr2 := recurseResult{ruleIndex: rule.rules0[0], index: rr.index, next: next}
-	if check(message, rules, rr2) {
-		return true
-	}
-
-	if len(rule.rules1) != 0 {
-		nextRule := rule.rules1[1:]
-		next := make([]int, len(rr.next)+len(nextRule))
-		copy(next, nextRule)
-		copy(next[len(nextRule):], rr.next)
-		rr2 := recurseResult{ruleIndex: rule.rules1[0], index: rr.index, next: next}
-		if check(message, rules, rr2) {
-			return true
-		}
-	}
-	return false
-}
-
 func matchingRules(input []string, part2 bool) int {
 	var result int
 	rules, messages := parseInput(input)
@@ -114,4 +76,42 @@ func parseInput(input []string) (rules map[int]rule, messages map[string]bool) {
 		}
 	}
 	return rules, messages
+}
+
+func check(message string, rules map[int]rule, rr recurseResult) bool {
+	rule := rules[rr.ruleIndex]
+	if rule.char != "" {
+		if string(message[rr.index]) != rule.char {
+			return false
+		}
+		if len(rr.next) == 0 {
+			return rr.index == len(message)-1
+		} else if rr.index+1 >= len(message) {
+			return false
+		} else {
+			rr2 := recurseResult{ruleIndex: rr.next[0], index: rr.index + 1, next: rr.next[1:]}
+			return check(message, rules, rr2)
+		}
+	}
+
+	nextRule := rule.rules0[1:]
+	next := make([]int, len(rr.next)+len(nextRule))
+	copy(next, nextRule)
+	copy(next[len(nextRule):], rr.next)
+	rr2 := recurseResult{ruleIndex: rule.rules0[0], index: rr.index, next: next}
+	if check(message, rules, rr2) {
+		return true
+	}
+
+	if len(rule.rules1) != 0 {
+		nextRule := rule.rules1[1:]
+		next := make([]int, len(rr.next)+len(nextRule))
+		copy(next, nextRule)
+		copy(next[len(nextRule):], rr.next)
+		rr2 := recurseResult{ruleIndex: rule.rules1[0], index: rr.index, next: next}
+		if check(message, rules, rr2) {
+			return true
+		}
+	}
+	return false
 }
