@@ -1,7 +1,6 @@
 package day19
 
 import (
-	"fmt"
 	"sort"
 	"strings"
 
@@ -24,99 +23,65 @@ func (r *rule) addRule(i int, n int) *rule {
 	return r
 }
 
-var discoveredMessages = make(map[memoizeRule]bool)
-
-type memoizeRule struct {
-	last  int
-	rule  int
-	match bool
+type recurseResult struct {
+	ruleIndex int
+	index     int
+	next      []int
 }
 
-func check(ruleResult memoizeRule, rules map[int]rule, char string) memoizeRule {
-	// fmt.Println(string(char))
-	ruleResult.match = false
-	if rules[ruleResult.rule].char != "" {
-		fmt.Println("hell?", ruleResult.rule, char, ruleResult)
-		// fmt.Println("asdf", ruleNum, rules[ruleNum].char, char)
-		if char == rules[ruleResult.rule].char {
-			// fmt.Println(ruleNum, char)
-			ruleResult.match = true
-			ruleResult.last++
-			return ruleResult
-		}
-		ruleResult.match = false
-		return ruleResult
-	} else {
-		curRuleNum := rules[ruleResult.rule].rules0
-		for i := ruleResult.last; i < len(curRuleNum); i++ {
-			ruleResult.last = i
-			ruleResult.rule = curRuleNum[i]
-			ruleResult = check(ruleResult, rules, char)
-			fmt.Println(ruleResult.rule, curRuleNum[i], char, ruleResult)
-			if !ruleResult.match {
-				break
-			} else {
-				return ruleResult
-			}
-		}
-		if ruleResult.match {
-			return ruleResult
-		}
-		curRuleNum = rules[ruleResult.rule].rules0
-		for i := ruleResult.last; i < len(curRuleNum); i++ {
-			ruleResult.last = i
-			ruleResult.rule = curRuleNum[i]
-			ruleResult = check(ruleResult, rules, char)
-			fmt.Println(ruleResult.rule, curRuleNum[i], char, ruleResult)
-			if !ruleResult.match {
-				break
-			} else {
-				return ruleResult
-			}
-		}
-	}
-	return ruleResult
-}
-
-func match(message string, start, end int, rules map[int]rule, r int) bool {
-	// memoize := memoizeRule{start: start, end: end, rule: r}
-	// if ok := discoveredMessages[memoize]; ok {
-	// 	return true
-	// }
-	// fmt.Println(message)
-	var ruleResult = memoizeRule{rule: 0, last: 0, match: false}
-	for _, char := range message {
-		fmt.Println("Checking: ", message, ruleResult)
-		ruleResult = check(ruleResult, rules, string(char))
-		if !ruleResult.match {
-			fmt.Println("!!!!", message, ruleResult)
+func check(message string, rules map[int]rule, rr recurseResult) bool {
+	rule := rules[rr.ruleIndex]
+	if rule.char != "" {
+		if string(message[rr.index]) != rule.char {
 			return false
 		}
-
-	}
-	fmt.Println("returned true", message, ruleResult)
-
-	return true
-}
-
-func matchingRules(input []string) int {
-	result := 0
-	rules, messages := parseInput(input)
-
-	fmt.Println(rules[0], rules)
-	// recurseRules(rules, 0)
-	// for _, rule := range rules {
-	// 	recurseRules(rule)
-	// }
-	for message := range messages {
-		// fmt.Println(message)
-		if match(message, 0, len(message), rules, 0) {
-
-			result++
-			fmt.Println("result", result)
+		if len(rr.next) == 0 {
+			return rr.index == len(message)-1
+		} else if rr.index+1 >= len(message) {
+			return false
+		} else {
+			rr2 := recurseResult{ruleIndex: rr.next[0], index: rr.index + 1, next: rr.next[1:]}
+			return check(message, rules, rr2)
 		}
 	}
 
+	nextRule := rule.rules0[1:]
+	next := make([]int, len(rr.next)+len(nextRule))
+	copy(next, nextRule)
+	copy(next[len(nextRule):], rr.next)
+	rr2 := recurseResult{ruleIndex: rule.rules0[0], index: rr.index, next: next}
+	if check(message, rules, rr2) {
+		return true
+	}
+
+	if len(rule.rules1) != 0 {
+		nextRule := rule.rules1[1:]
+		next := make([]int, len(rr.next)+len(nextRule))
+		copy(next, nextRule)
+		copy(next[len(nextRule):], rr.next)
+		rr2 := recurseResult{ruleIndex: rule.rules1[0], index: rr.index, next: next}
+		if check(message, rules, rr2) {
+			return true
+		}
+	}
+	return false
+}
+
+func matchingRules(input []string, part2 bool) int {
+	var result int
+	rules, messages := parseInput(input)
+	rr := recurseResult{ruleIndex: 0, index: 0, next: nil}
+
+	if part2 {
+		rules[8] = rule{index: 8, rules0: []int{42}, rules1: []int{42, 8}}
+		rules[11] = rule{index: 11, rules0: []int{42, 31}, rules1: []int{42, 11, 31}}
+	}
+
+	for message := range messages {
+		if check(message, rules, rr) {
+			result++
+		}
+	}
 	return result
 }
 

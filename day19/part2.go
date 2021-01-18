@@ -17,7 +17,7 @@ func Part2() {
 		log.Fatalf("Could not read lines: %v\n", err)
 	}
 
-	result := input
+	result := matchingRules(input, true)
 
 	fmt.Printf("Day19 Part2 result: %v\n", result)
 }
