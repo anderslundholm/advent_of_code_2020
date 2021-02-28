@@ -21,6 +21,10 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/day2"
 	"github.com/anderslundholm/advent_of_code_2020/day20"
 	"github.com/anderslundholm/advent_of_code_2020/day21"
+	"github.com/anderslundholm/advent_of_code_2020/day22"
+	"github.com/anderslundholm/advent_of_code_2020/day23"
+	"github.com/anderslundholm/advent_of_code_2020/day24"
+	"github.com/anderslundholm/advent_of_code_2020/day25"
 	"github.com/anderslundholm/advent_of_code_2020/day3"
 	"github.com/anderslundholm/advent_of_code_2020/day4"
 	"github.com/anderslundholm/advent_of_code_2020/day5"
@@ -74,6 +78,10 @@ func init() {
 	day18.AppendCommand(rootCmd)
 	day20.AppendCommand(rootCmd)
 	day21.AppendCommand(rootCmd)
+	day22.AppendCommand(rootCmd)
+	day23.AppendCommand(rootCmd)
+	day24.AppendCommand(rootCmd)
+	day25.AppendCommand(rootCmd)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent_of_code_2020.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
