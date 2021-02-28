@@ -8,7 +8,15 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/anderslundholm/advent_of_code_2020/day1"
+	"github.com/anderslundholm/advent_of_code_2020/day01"
+	"github.com/anderslundholm/advent_of_code_2020/day02"
+	"github.com/anderslundholm/advent_of_code_2020/day03"
+	"github.com/anderslundholm/advent_of_code_2020/day04"
+	"github.com/anderslundholm/advent_of_code_2020/day05"
+	"github.com/anderslundholm/advent_of_code_2020/day06"
+	"github.com/anderslundholm/advent_of_code_2020/day07"
+	"github.com/anderslundholm/advent_of_code_2020/day08"
+	"github.com/anderslundholm/advent_of_code_2020/day09"
 	"github.com/anderslundholm/advent_of_code_2020/day10"
 	"github.com/anderslundholm/advent_of_code_2020/day11"
 	"github.com/anderslundholm/advent_of_code_2020/day12"
@@ -19,20 +27,12 @@ import (
 	"github.com/anderslundholm/advent_of_code_2020/day17"
 	"github.com/anderslundholm/advent_of_code_2020/day18"
 	"github.com/anderslundholm/advent_of_code_2020/day19"
-	"github.com/anderslundholm/advent_of_code_2020/day2"
 	"github.com/anderslundholm/advent_of_code_2020/day20"
 	"github.com/anderslundholm/advent_of_code_2020/day21"
 	"github.com/anderslundholm/advent_of_code_2020/day22"
 	"github.com/anderslundholm/advent_of_code_2020/day23"
 	"github.com/anderslundholm/advent_of_code_2020/day24"
 	"github.com/anderslundholm/advent_of_code_2020/day25"
-	"github.com/anderslundholm/advent_of_code_2020/day3"
-	"github.com/anderslundholm/advent_of_code_2020/day4"
-	"github.com/anderslundholm/advent_of_code_2020/day5"
-	"github.com/anderslundholm/advent_of_code_2020/day6"
-	"github.com/anderslundholm/advent_of_code_2020/day7"
-	"github.com/anderslundholm/advent_of_code_2020/day8"
-	"github.com/anderslundholm/advent_of_code_2020/day9"
 )
 
 var cfgFile string
@@ -59,15 +59,15 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	day1.AppendCommand(rootCmd)
-	day2.AppendCommand(rootCmd)
-	day3.AppendCommand(rootCmd)
-	day4.AppendCommand(rootCmd)
-	day5.AppendCommand(rootCmd)
-	day6.AppendCommand(rootCmd)
-	day7.AppendCommand(rootCmd)
-	day8.AppendCommand(rootCmd)
-	day9.AppendCommand(rootCmd)
+	day01.AppendCommand(rootCmd)
+	day02.AppendCommand(rootCmd)
+	day03.AppendCommand(rootCmd)
+	day04.AppendCommand(rootCmd)
+	day05.AppendCommand(rootCmd)
+	day06.AppendCommand(rootCmd)
+	day07.AppendCommand(rootCmd)
+	day08.AppendCommand(rootCmd)
+	day09.AppendCommand(rootCmd)
 	day10.AppendCommand(rootCmd)
 	day11.AppendCommand(rootCmd)
 	day12.AppendCommand(rootCmd)
