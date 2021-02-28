@@ -2,9 +2,8 @@ package day20
 
 import (
 	"fmt"
-	"log"
+	"io/ioutil"
 
-	"github.com/anderslundholm/advent_of_code_2020/pkg/reader"
 	"github.com/anderslundholm/advent_of_code_2020/pkg/timer"
 )
 
@@ -12,12 +11,14 @@ import (
 func Part2() {
 	defer timer.ExecutionTimer("Part2")()
 
-	input, err := reader.ReadLines("day20/input.txt")
-	if err != nil {
-		log.Fatalf("Could not read lines: %v\n", err)
-	}
+	// input, err := reader.ReadLines("day20/input.txt")
+	// if err != nil {
+	// 	log.Fatalf("Could not read lines: %v\n", err)
+	// }
 
-	result := assembleImage(input)
+	input, _ := ioutil.ReadFile("day20/input.txt")
+
+	result := part2(string(input))
 
 	fmt.Printf("Day20 Part2 result: %v\n", result)
 }
